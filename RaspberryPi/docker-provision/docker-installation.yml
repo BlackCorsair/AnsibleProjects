@@ -1,0 +1,8 @@
+---
+# Author: Jorge Hevia Moreno
+# Function: installs docker on raspbian 8.0 (jessie), it should work
+#           also with debian and derivates
+- hosts: raspberrypi
+  # change to false when ready
+  ignore_errors: yes
+  # TO-DO ...
