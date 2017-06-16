@@ -5,7 +5,7 @@
 #                         it's done with repositories (cross fingers to work with proxies) 
 # Working Ansible version: 2.3.0.0
 
-- hosts: hosts
+- hosts: raspberrypi
   become: true
   roles:
       - role: docker_install 

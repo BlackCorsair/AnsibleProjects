@@ -1,6 +1,6 @@
 ---
 # include file for debian distros
-- include: debian-installation.yml
+- include: raspbian-installation.yml
 
 # set to auto-start the docker service when the system loads (distro independent)
 - name: Set docker to start automatically
@@ -19,26 +19,3 @@
     name: pi
     group: docker
     state: present
-
-# set the proxy (proxy.gfi.es) for docker
-# if the proxy server is different, change the file http-proxy.conf
-- name: Create a systemd drop-in directory for the docker service
-  file:
-    path: /etc/systemd/system/docker.service.d
-    state: directory
-  when: ansible_service_mgr == "systemd"
-
-- name: Create the file 'http-proxy.conf'
-  copy:
-    src: http-proxy.conf
-    dest: /etc/systemd/system/docker.service.d/
-  when: ansible_service_mgr == "systemd"
-
-- name: Flush changes in systemd
-  systemd: name=docker daemon_reload=yes
-  when: ansible_service_mgr == "systemd"
-
-- name: Restart docker
-  systemd: state=restarted name=docker 
-  when: ansible_service_mgr == "systemd"
-

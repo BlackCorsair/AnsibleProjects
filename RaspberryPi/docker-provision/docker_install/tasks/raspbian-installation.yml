@@ -1,0 +1,24 @@
+---
+# Installation is done following this guide (https://github.com/umiddelb/armhf/wiki/Get-Docker-up-and-running-on-the-RaspberryPi-(ARMv6)-in-four-steps-(Wheezy))
+# curl -ks https://packagecloud.io/install/repositories/Hypriot/Schatzkiste/script.deb.sh | sudo bash
+# sudo apt-get install docker-hypriot=1.10.3-1
+# sudo sh -c 'usermod -aG docker $SUDO_USER'
+# sudo systemctl enable docker.service
+
+# this should work with or without proxy, it must be set on the docker_install.yml playbook to apply globally
+- name: Install packages to allow apt to use a repository over HTTPS
+  apt: name={{item}} state=latest
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+  when: ansible_pkg_mgr == "apt"
+
+- name: Download and execute the installation script from Hypriot
+  shell: curl -ks https://packagecloud.io/install/repositories/Hypriot/Schatzkiste/script.deb.sh | sudo bash
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install docker with apt
+  apt: name=docker-hypriot state=latest
+  when: ansible_pkg_mgr == "apt"
