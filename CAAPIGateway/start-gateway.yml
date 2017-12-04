@@ -1,0 +1,9 @@
+---
+# Creator: Jorge Hevia - jmhev@outlook.com
+# Version: 1.0
+# This playbook starts the CA API Gateway 9.2 process with the gateway user
+- hosts: pre-nodes
+  become: true
+  tasks:
+    - name: Starts CA API Gateway 9.2 process
+      command: su - gateway -c "/opt/SecureSpan/Gateway/runtime/bin/gateway.sh start"
