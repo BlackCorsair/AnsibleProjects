@@ -5,8 +5,7 @@
 - hosts: pre-nodes
   become: true
   tasks:
-    - name: Stops CA API Gateway 9.2 process
-      command: su - gateway -c "/opt/SecureSpan/Gateway/runtime/bin/gateway.sh stop"
-
-    - name: Starts CA API Gateway 9.2 process
-      command: su - gateway -c "/opt/SecureSpan/Gateway/runtime/bin/gateway.sh start"
+    - name: Restarts the gateway service
+      service:
+        name: gateway
+        state: restarted
