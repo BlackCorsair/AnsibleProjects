@@ -1,0 +1,39 @@
+---
+# Author: Jorge Hevia - jmhev@outlook.com
+# This playbook installs docker-ce in centos following the official installation 
+# found at https://docs.docker.com/install/linux/docker-ce/centos/
+
+- name: Removes old versions of docker
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-selinux
+    - docker-engine-selinux
+    - docker-engine
+
+- name: Installs required packages to add the docker-ce repository
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+
+- name: Enables the docker-ce repository
+  yum:
+    enablerepo: https://download.docker.com/linux/centos/docker-ce.repo
+    state: present
+
+- name: Installs docker-ce
+  yum:
+    name: docker-ce
+    state: latest

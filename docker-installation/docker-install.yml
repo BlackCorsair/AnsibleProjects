@@ -1,0 +1,7 @@
+---
+# Author: Jorge Hevia - jmhev@outlook.com
+# This role installs docker-ce in RHEL and Debian based distributions
+- hosts: nodes
+  become: true
+  roles:
+    - role: docker-install

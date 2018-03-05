@@ -1,0 +1,15 @@
+---
+# Author: Jorge Hevia - jmhev@outlook.com
+# this playbook calls all the other playbooks depending of the distribution. It requires SYSTEMD
+- include_tasks: centos.yml
+  when: ansible_os_family == 'RedHat'
+
+
+
+
+- name: Enables docker service at boot
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+  when: ansible_service_mgr == "systemd"
