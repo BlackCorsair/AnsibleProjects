@@ -3,7 +3,8 @@
 # this playbook calls all the other playbooks depending of the distribution. It requires SYSTEMD
 - include_tasks: centos.yml
   when: ansible_os_family == 'RedHat'
-
+- include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
 
 
 
