@@ -1,9 +1,10 @@
 ---
 # Author: Jorge Hevia - jmhev@outlook.com
 # this playbook calls all the other playbooks depending of the distribution. It requires SYSTEMD
-- include_tasks: centos.yml
+
+- include: centos.yml
   when: ansible_os_family == 'RedHat'
-- include_tasks: debian.yml
+- include: debian.yml
   when: ansible_os_family == 'Debian'
 
 

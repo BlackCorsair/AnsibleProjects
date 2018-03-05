@@ -29,9 +29,11 @@
     - lvm2
 
 - name: Enables the docker-ce repository
-  yum:
-    enablerepo: https://download.docker.com/linux/centos/docker-ce.repo
-    state: present
+  yum_repository:
+    name: docker-ce-stable
+    description: docker-ce official repository
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+    enabled: yes
 
 - name: Installs docker-ce
   yum:
