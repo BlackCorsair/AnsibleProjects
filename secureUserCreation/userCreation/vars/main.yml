@@ -8,4 +8,3 @@
 # What does this playbook do?: this playbook contains the users to create
 users:
   - test
-  - test2

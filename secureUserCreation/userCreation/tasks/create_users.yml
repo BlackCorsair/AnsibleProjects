@@ -9,8 +9,19 @@
 # found in role/vars/main.yml-
 - name: Creates the users from {role}/vars/main.yml
   user:
-    name: "{{ users }}"
+    name: "{{ item }}"
     group: users
     generate_ssh_key: yes
     ssh_key_bits: 4096
-    ssh_key_file: .ssh/id_rsa
+    ssh_key_file: .ssh/{{ item }}
+    state: present
+  with_items:
+    - "{{ users }}"
+- name: adds the rsa key to ~/.ssh/known_hosts
+  copy:
+    src: /home/{{item}}/.ssh/{{item}}.pub
+    dest: /home/"{{ item }}"/.ssh/known_hosts
+    owner: "{{ item }}"
+    mode: 0644
+  with_items:
+    - "{{ users }}"
