@@ -1,0 +1,12 @@
+---
+# Author: Jorge Hevia
+# jmhev@outlook.com
+# Ansible Version: 2.3.1
+# What does this role do?: This role will create the users given in the
+#   userCreation/vars/main.yml file so they can connect throught ssh
+#   using a new generated rsa-4096 key
+# What does this playbook do?: this playbook calls all the other playbooks
+#   from the role/tasks/ directory
+- include: generate_rsa_key.yml
+- include: create_users.yml
+- include: add_users_to_ssh.yml

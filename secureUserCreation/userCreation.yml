@@ -1,0 +1,11 @@
+---
+# Author: Jorge Hevia
+# jmhev@outlook.com
+# Ansible Version: 2.3.1
+# What does this role do?: This role will create the users given in the
+#   userCreation/vars/main.yml file so they can connect throught ssh
+#   using a new generated rsa-4096 key
+- hosts: aws
+  become: true
+  roles:
+    - userCreation

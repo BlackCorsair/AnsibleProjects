@@ -1,0 +1,4 @@
+[aws]
+localhost	ansible_user=jhevia	ansible_connection=local
+node1	ansible_user=root	ansible_host=192.168.56.110	ansible_port=22	ansible_ssh_private_key_file=root.pem
+node2	ansible_user=root	ansible_host=192.168.56.110	ansible_port=22	ansible_ssh_private_key_file=root.pem
