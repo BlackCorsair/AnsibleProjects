@@ -7,7 +7,7 @@
 #   using a new generated rsa-4096 key
 # What does this playbook do?: this playbook creates the users
 # found in role/vars/main.yml-
-- name: Creates the users from {role}/vars/main.yml
+- name: Creates the users from the vars defined
   user:
     name: "{{ item }}"
     group: users
@@ -17,19 +17,11 @@
     state: present
   with_items:
     - "{{ users }}"
-- name: adds the rsa key to ~/.ssh/known_hosts
-  copy:
-    remote_src: yes
-    src: /home/{{item}}/.ssh/{{item}}.pub
-    dest: /home/{{item}}/.ssh/known_hosts
-    owner: "{{ item }}"
-    mode: 0644
-  with_items:
-    - "{{ users }}"
+
 - name: fetchs the private key from the server and stores it on {role}/tmp
   fetch:
     src: /home/{{item}}/.ssh/{{item}}
-    dest: userCreation/tmp/{{item}}.{{ansible_hostname}}.pem
+    dest: userCreation/tmp/{{item}}.pem
     flat: yes
   with_items:
     - "{{ users }}"
@@ -37,7 +29,18 @@
 - name: fetchs the public key from the server and stores it on {role}/tmp
   fetch:
     src: /home/{{item}}/.ssh/{{item}}.pub
-    dest: userCreation/tmp/{{item}}.{{ansible_hostname}}.pub
+    dest: userCreation/tmp/{{item}}.pub
     flat: yes
   with_items:
     - "{{ users }}"
+
+- name: adds the last public key to every host
+  authorized_key:
+    user: "{{item}}"
+    state: present
+    key: "{{ lookup('file', 'userCreation/tmp/{{item}}.pub') }}"
+    exclusive: True
+  with_items:
+    - "{{ users }}"
+  tags:
+    - addKey
