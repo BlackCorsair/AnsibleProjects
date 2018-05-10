@@ -9,3 +9,6 @@
   become: true
   roles:
     - userCreation
+  vars:
+    users:
+      - test
