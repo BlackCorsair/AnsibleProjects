@@ -19,9 +19,17 @@
     - "{{ users }}"
 - name: adds the rsa key to ~/.ssh/known_hosts
   copy:
+    remote_src: yes
     src: /home/{{item}}/.ssh/{{item}}.pub
-    dest: /home/"{{ item }}"/.ssh/known_hosts
+    dest: /home/{{item}}/.ssh/known_hosts
     owner: "{{ item }}"
     mode: 0644
+  with_items:
+    - "{{ users }}"
+- name: fetchs the public key from the server and stores it on {role}/tmp
+  fetch:
+    src: /home/{{item}}/.ssh/{{item}}
+    dest: userCreation/tmp/{{item}}.pem
+    flat: yes
   with_items:
     - "{{ users }}"

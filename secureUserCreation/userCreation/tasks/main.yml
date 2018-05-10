@@ -7,6 +7,4 @@
 #   using a new generated rsa-4096 key
 # What does this playbook do?: this playbook calls all the other playbooks
 #   from the role/tasks/ directory
-- include: generate_rsa_key.yml
 - include: create_users.yml
-- include: add_users_to_ssh.yml
