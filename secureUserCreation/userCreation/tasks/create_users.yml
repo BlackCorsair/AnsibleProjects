@@ -26,10 +26,18 @@
     mode: 0644
   with_items:
     - "{{ users }}"
-- name: fetchs the public key from the server and stores it on {role}/tmp
+- name: fetchs the private key from the server and stores it on {role}/tmp
   fetch:
     src: /home/{{item}}/.ssh/{{item}}
-    dest: userCreation/tmp/{{item}}.pem
+    dest: userCreation/tmp/{{item}}.{{ansible_hostname}}.pem
+    flat: yes
+  with_items:
+    - "{{ users }}"
+
+- name: fetchs the public key from the server and stores it on {role}/tmp
+  fetch:
+    src: /home/{{item}}/.ssh/{{item}}.pub
+    dest: userCreation/tmp/{{item}}.{{ansible_hostname}}.pub
     flat: yes
   with_items:
     - "{{ users }}"
