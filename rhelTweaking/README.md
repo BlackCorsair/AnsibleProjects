@@ -1,0 +1,2 @@
+# RHEL Tweaking
+This directory collects multiple playbooks to configure rhel | centos | AmazonLinux2 systems in EC2 instances. None of them makes wonderful things, but they're useful and save time when managing a lot of instances.
