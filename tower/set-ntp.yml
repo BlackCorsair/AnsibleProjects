@@ -2,7 +2,7 @@
 # Creator: Jorge Hevia - jmhev@outlook.com
 # Version: 1.0
 # This playbook sets the ntp server in a rhel/centos/amazonlinux ec2 instance
-- hosts: testing
+- hosts: all
   become: true
   vars:
     ntpserver: hora.roa.es
