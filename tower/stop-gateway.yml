@@ -1,0 +1,11 @@
+---
+# Creator: Jorge Hevia - jmhev@outlook.com
+# Version: 1.0
+# This playbook stops the CA API Gateway 9.2 process with the gateway user
+- hosts: pre-nodes
+  become: true
+  tasks:
+    - name: Stops the gateway service
+      service:
+        name: gateway
+        state: stopped

@@ -1,0 +1,8 @@
+---
+# Creator: Jorge Hevia - jmhev@outlook.com
+# Version: 1.0
+# This playbook starts the CA API Gateway 9.2 process with the gateway user
+- name: Restarts the gateway service
+  service:
+    name: gateway
+    state: restarted
