@@ -2,25 +2,30 @@
 # Creator: Jorge Hevia - jmhev@outlook.com
 # Version: 1.0
 # This playbook sets the ntp server in a rhel/centos/amazonlinux ec2 instance
-- name: Removes ntp and ntpdate
-  yum:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - ntp
-    - ntpdate
-- name: Installs chrony
-  yum:
-    name: chrony
-    state: present
-- name: Sets the ntp-server in /etc/chrony.conf
-  lineinfile:
-    path: /etc/chrony.conf
-    insertbefore: 'server 0'
-    line: 'server {{ ntpserver }} prefer iburst'
-    state: restarted
-- name: Starts and enables the service chronyd
-  systemd:
-    name: chronyd
-    state: started
-    enabled: yes
+- hosts: testing
+  become: true
+  vars:
+    ntpserver: hora.roa.es
+  tasks:
+    - name: Removes ntp and ntpdate
+      yum:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - ntp
+        - ntpdate
+    - name: Installs chrony
+      yum:
+        name: chrony
+        state: present
+    - name: Sets the ntp-server in /etc/chrony.conf
+      lineinfile:
+        path: /etc/chrony.conf
+        insertbefore: 'server 0'
+        line: 'server {{ ntpserver }} prefer iburst'
+        state: restarted
+    - name: Starts and enables the service chronyd
+      systemd:
+        name: chronyd
+        state: started
+        enabled: yes
