@@ -23,9 +23,9 @@
         path: /etc/chrony.conf
         insertbefore: 'server 0'
         line: 'server {{ ntpserver }} prefer iburst'
-        state: restarted
+        state: present
     - name: Starts and enables the service chronyd
       systemd:
         name: chronyd
-        state: started
+        state: restarted
         enabled: yes
