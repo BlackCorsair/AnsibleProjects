@@ -4,8 +4,8 @@
 # This playbook sets the ntp server in a rhel/centos/amazonlinux ec2 instance
 - hosts: all
   become: true
-  vars:
-    ntpserver: hora.roa.es
+#  vars:
+#    ntpserver: hora.roa.es
   tasks:
     - name: Removes ntp and ntpdate
       yum:
